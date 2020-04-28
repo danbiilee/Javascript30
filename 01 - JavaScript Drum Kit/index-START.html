@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Drum Kit-START</title>
+  <link rel="stylesheet" href="style-START.css">
+</head>
+<body>
+  <div class="keys">
+    <div class="key" data-key="65">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div class="key" data-key="83">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div class="key" data-key="68">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div class="key" data-key="70">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div class="key" data-key="71">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div class="key" data-key="72">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div class="key" data-key="74">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div class="key" data-key="75">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div class="key" data-key="76">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>  
+
+  <audio src="sounds/clap.wav" data-key="65"></audio>
+  <audio src="sounds/hihat.wav" data-key="83"></audio>
+  <audio src="sounds/kick.wav" data-key="68"></audio>
+  <audio src="sounds/openhat.wav" data-key="70"></audio>
+  <audio src="sounds/boom.wav" data-key="71"></audio>
+  <audio src="sounds/ride.wav" data-key="72"></audio>
+  <audio src="sounds/snare.wav" data-key="74"></audio>
+  <audio src="sounds/tom.wav" data-key="75"></audio>
+  <audio src="sounds/tink.wav" data-key="76"></audio>
+
+  <!-- <script>
+    function playSound(e){
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      if(!audio) return;
+
+      key.classList.add('playing');
+
+      //같은 키를 연타하면 오디오 재생시간(2초)동안 재실행되지 않는다.
+      //오디오를 되감기(rewind)해준다.
+      audio.currentTime = 0; 
+      audio.play();
+    }
+
+    function removeTransition(e){
+      //e: TransitionEvent 
+      //e.target: div.key(트랜지션 이벤트가 발생한 요소. 즉 해당 함수를 호출시킨 요소)
+      console.log(e);
+      console.log(e.target);
+      console.log(this);
+
+      // css에서 트랜지션: all이라고 지정했기 때문에 border, box-shadow, transform에 대한 트랜지션 이벤트가 발생함.
+      // 그 중 transform이 아니면 넘어가라.
+      console.log(e.propertyName);
+      if(e.propertyName !== 'transform') return;
+
+      //this = 현재 함수를 호출한 이벤트가 발생한 대상 = key 
+      this.classList.remove('playing');
+      //e.target.classList.remove('playing');
+    }
+
+    const keys = Array.from(document.querySelectorAll('.key'));
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound);
+  </script> -->
+
+  <script>
+  function playSound(e){
+    const drum = document.querySelector(`.key[data-key='${e.keyCode}']`);
+    const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
+
+    if(!drum || !audio) return;
+    
+    drum.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  function removeTransition(e){
+    if(e.propertyName !== 'transform') return;
+
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => { key.addEventListener('transitionend', removeTransition) });
+  window.addEventListener('keydown', playSound);
+  </script>
+</body>
+</html>
