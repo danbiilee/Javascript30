@@ -27,18 +27,70 @@
       { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
     ];
 
-    const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'];
+    const people = [
+      'Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 
+      'Beddoes, Mick', 'Beecher, Henry', 'Beethoven, Ludwig', 
+      'Begin, Menachem', 'Belloc, Hilaire', 'Bellow, Saul', 
+      'Benchley, Robert', 'Benenson, Peter', 'Ben-Gurion, David', 
+      'Benjamin, Walter', 'Benn, Tony', 'Bennington, Chester', 
+      'Benson, Leana', 'Bent, Silas', 'Bentsen, Lloyd', 'Berger, Ric', 
+      'Bergman, Ingmar', 'Berio, Luciano', 'Berle, Milton', 
+      'Berlin, Irving', 'Berne, Eric', 'Bernhard, Sandra', 'Berra, Yogi', 
+      'Berry, Halle', 'Berry, Wendell', 'Bethea, Erin', 'Bevan, Aneurin', 
+      'Bevel, Ken', 'Biden, Joseph', 'Bierce, Ambrose', 'Biko, Steve', 
+      'Billings, Josh', 'Biondo, Frank', 'Birrell, Augustine', 
+      'Black, Elk', 'Blair, Robert', 'Blair, Tony', 'Blake, William'
+    ];
+
+
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
     let result = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
     console.log(result);
 
+    // Answer
+    const fifteen = inventors.filter(function(inventor){
+      if(inventor.year >= 1500 && inventor.year < 1600){
+        return true; // keep it!
+      }
+      // false를 반환하는 else절은 굳이 쓰지 않아도 된다!
+    });
+    console.table(fifteen); //배열을 table로 볼 수 있다!!!!!
+
+    //화살표 함수로 바꾸기
+    /* const fifteen = inventors.filter(inventor => {
+      if(inventor.year >= 1500 && inventor.year < 1600){
+        return true; 
+      }
+    }); */
+    //화살표 함수가 true를 반환한다면 함수의 내부 if절도 한 줄로 생략가능
+    /* const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600 ); */
+
+
+
+
+
+
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
     console.log(inventors.map(item => {
       return { 'first': item.first, 'last': item.last};
     }));
+
+    // Answer
+    // map()은 항상 원본 배열의 길이와 똑같은, 새로운 배열을 만들어 반환한다. 
+    const fullNames = inventors.map(inventor => inventor.first + ' ' + inventor.last);
+    inventors.map(inventor => `${inventor.first} ${inventor.last}`); // 혹은 백틱을 이용해 공백 처리
+    console.log(fullNames);
+
+
+
+
+
+
+
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
@@ -48,6 +100,17 @@
       return 0;
     }));
 
+    // Answer
+    // sort() 는 버블정렬과 같이 두 개의 요소를 비교해 정렬하는 메소드
+    // if문을 삼항 연산자(ternary operator)를 이용해 한 줄로 줄이기 
+    const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.table(ordered);
+
+
+
+
+
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
@@ -56,6 +119,19 @@
       (accumulator, currentVal) => accumulator + (currentVal.passed - currentVal.year),
       0
     ));
+
+    // Answer
+    // reduce() 는 for문을 돌면서 totalSum을 구하는 예전 방식의 코드에서 벗어날 수 있게 해준다.
+    // reduce(a, b) -> a = 최종적으로 반환될 값
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total+ (inventor.passed - inventor.year);
+    }, 0);
+    console.log(totalYears);
+
+
+
+
+
 
 
     // 5. Sort the inventors by years lived
@@ -68,6 +144,22 @@
       return 0;
     }));
 
+    // Answer
+
+    // a가 더 크면 그대로(-1), b가 더 크면 교환(1) 
+    const oldest = inventors.sort(function(a, b) {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+      return lastGuy > nextGuy ? -1 : 1;
+    });
+    console.table(oldest);
+
+
+
+
+
+
+
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
     let arr = [];
@@ -77,6 +169,24 @@
       }
     });
     console.log(arr);
+
+    // Answer
+    // 현재 DOM이 아닌 위 링크에서 de가 들어간 이름 찾기. 위 링크 콘솔창에서 테스트할 것
+    // const category = document.querySelector('.mw-category');
+    // const links = category.querySelectorAll('a'); 
+    // const de = links.map(link => link.textContent);
+
+    // querySelectorAll()은 유사배열인 NodeList를 반환하기 때문에 map메소드를 사용할 수 없음.
+    // NodeList -> Array
+    // const links = Array.from(category.querySelectorAll('a')); 
+    // const de = links
+    //             .map(link => link.textContent)
+    //             .filter(streetName => streetName.includes('de'));
+
+
+
+
+
 
 
     // 7. sort Exercise
@@ -89,6 +199,23 @@
       return 0;
     }));
 
+    // Answer
+    const alpha = people.sort((lastOne, nextOne) => {
+      // const parts = lastOne.split(', ');
+      
+      // 위처럼 Array 형식이 아니라 각각 변수에 담기 위해
+      // [](square bracket) 안에 변수를 선언해줌 
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(alpha);
+
+
+
+
+
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
@@ -96,7 +223,6 @@
 
     console.log(data.reduce(
       (allData, datas) => {
-        console.log(allData);
         if(datas === allData){
           allData[datas]++;
         }
@@ -106,6 +232,32 @@
         return allData;
       }
     ), {});
+
+
+    // ANSWER
+    /*
+      reduce메소드의 초기화를 빈 객체{}로 하는 것은
+      {
+        car: 0,
+        truck: 0,
+        bike: 0,
+        ...
+      }
+      와 같음. 하드코딩하는 수고로움을 덜어준다.  
+    */
+    const transportation = data.reduce(function(obj, item){
+      //console.log(item);
+
+      //obj에 item과 동일한 프로퍼티가 없다면 0으로 초기화하고 +1해줌
+      if(!obj[item]){
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+    console.log(transportation);
+
+
   </script>
 </body>
 </html>
