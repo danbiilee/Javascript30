@@ -124,7 +124,7 @@
     // reduce() 는 for문을 돌면서 totalSum을 구하는 예전 방식의 코드에서 벗어날 수 있게 해준다.
     // reduce(a, b) -> a = 최종적으로 반환될 값
     const totalYears = inventors.reduce((total, inventor) => {
-      return total+ (inventor.passed - inventor.year);
+      return total + (inventor.passed - inventor.year);
     }, 0);
     console.log(totalYears);
 
@@ -201,7 +201,8 @@
 
     // Answer
     const alpha = people.sort((lastOne, nextOne) => {
-      // const parts = lastOne.split(', ');
+      const parts = lastOne.split(', ');
+      console.log(parts);
       
       // 위처럼 Array 형식이 아니라 각각 변수에 담기 위해
       // [](square bracket) 안에 변수를 선언해줌 
