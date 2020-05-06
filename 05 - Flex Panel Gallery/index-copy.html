@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Flex Panels 💪 - START</title>
+  <title>Flex Panels 💪 - copy</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -25,23 +25,18 @@ body{
 }
 
 .panels{
-    min-height: 100vh;
+    display: flex;
     overflow: hidden;
-    display: flex; /* div들이 행에서 열로 */
+    min-height: 100vh;
 }
 
 .panel{
-    /* .panel들은 .panels의 flex-item이면서 동시에 자식 p태그들의 flex-container */
     display: flex;
-    flex: 1; /* 남는 공간을 각각의 panel들이 동일하게 분배 */
-    /* 
-        flexbox의 flex-item들의 기본 정렬값은 좌우 가운데 
-        column값: 위아래 가운데 정렬
-    */
-    flex-direction: column; 
-    justify-content: center; /* 좌우 가운데정렬 */
+    flex: 1;
+    flex-direction: column;
     align-items: center;
-    
+    justify-content: center;
+
     background: #6B0F9C;
     background-size: cover;
     background-position: center;
@@ -63,21 +58,16 @@ body{
 .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
 /* Flex Items */
-.panel > *{
+.panel > * {
     display: flex;
-    flex: 1 0 auto; /* p태그들의 영역을 3등분 시켜줌 */
-    justify-content: center;
+    flex: 1 0 auto;
     align-items: center;
+    justify-content: center;
     width: 100%;
     margin: 0;
-    transition: transform 0.5s;
     /* border: 1px solid red; */
+    transition: transform .5s;
 }
-
-.panel > *:first-child { transform: translateY(-100%); }
-.panel.open-active > *:first-child { transform: translateY(0); }
-.panel > *:last-child { transform: translateY(100%); }
-.panel.open-active > *:last-child { transform: translateY(0); }
 
 .panel p {
     font-size: 2em;
@@ -90,13 +80,13 @@ body{
     font-size: 4em;
 }
 
+.panel p:first-of-type{ transform: translateY(-100%); }
+.panel.open-active p:first-of-type{ transform: translateY(0); }
+.panel p:last-of-type{ transform: translateY(100%); }
+.panel.open-active p:last-of-type{ transform: translateY(0); }
+
 .panel.open{
-    /* 
-        open클래스가 있는 .panel은 나머지 .panel들보다 남는 공간을 5배 더 많이 가져감 
-        (직접 width값을 주지 않아도 됨!)
-        애니메이션처럼 효과가 나는 이유는 위에 .panel에 trnasition속성을 지정했기 때문
-    */
-    flex: 5; 
+    flex: 5;
     font-size: 40px;
 }
 </style>
