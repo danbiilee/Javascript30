@@ -108,20 +108,31 @@ function handleCheck(e){
   let inBetween = false;
 
   if(e.shiftKey && this.checked){
+
     checkboxes.forEach(checkbox => {
+      console.log(inBetween);
       console.log(checkbox);
-      if(checkbox === this || checkbox === lastChecked){
-        inBetween = !inBetween;
-        console.log('Starting to check them in between!');
+
+      if(checkbox === lastChecked){
+        inBetween = !inBetween; // 이전에 선택된 체크박스를 만나면 true
+        console.log('(checkbox === lastChecked)Starting to check them in between!');
+      }
+      // 그 사이 체크박스들은 true로 체크하다가 이번에 선택한 체크박스를 만나면 false로 변경
+      // 그 다음 체크박스들은 false이기 때문에 체크 안됨
+      if(checkbox === this){
+        inBetween = !inBetween; 
+        console.log('(checkbox === this)Starting to check them in between!');
       }
 
       if(inBetween){
         checkbox.checked = true;
       }
     });
+
   }
 
   lastChecked = this;
+  console.log('lastChecked=', lastChecked);
 }
 
 checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
