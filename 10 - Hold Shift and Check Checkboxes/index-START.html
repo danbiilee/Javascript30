@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hold Shift to Check Multiple Checkboxes</title>
+  <title>Hold Shift to Check Multiple Checkboxes - START</title>
 </head>
 <body>
   <style>
-
     html {
       font-family: sans-serif;
       background: #ffc600;
     }
 
-    .inbox {
+    .inbox{
       max-width: 400px;
       margin: 50px auto;
       background: white;
@@ -20,35 +19,36 @@
       box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
     }
 
-    .item {
+    .item{
       display: flex;
       align-items: center;
       border-bottom: 1px solid #F1F1F1;
     }
 
-    .item:last-child {
+    .item:last-child{
       border-bottom: 0;
     }
 
-    input:checked + p {
+    input:checked + p{ /* + 선택자!?!? */
       background: #F9F9F9;
       text-decoration: line-through;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"]{
       margin: 20px;
     }
 
-    p {
+    p{
+      flex: 1;
       margin: 0;
       padding: 20px;
-      transition: background 0.2s;
-      flex: 1;
-      font-family:'helvetica neue';
+      border-left: 1px solid #D1E2FF;
+      font-family: 'helvetica neue';
       font-size: 20px;
       font-weight: 200;
-      border-left: 1px solid #D1E2FF;
+      transition: background .2s;
     }
+
   </style>
    <!--
    The following is a common layout you would see in an email client.
@@ -96,6 +96,35 @@
   </div>
 
 <script>
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+let lastChecked;
+
+function handleCheck(e){
+  // console.log(e.shiftKey);
+  // console.log(this.checked); // true
+  // console.log(this.value); // on
+
+  let inBetween = false;
+
+  if(e.shiftKey && this.checked){
+    checkboxes.forEach(checkbox => {
+      console.log(checkbox);
+      if(checkbox === this || checkbox === lastChecked){
+        inBetween = !inBetween;
+        console.log('Starting to check them in between!');
+      }
+
+      if(inBetween){
+        checkbox.checked = true;
+      }
+    });
+  }
+
+  lastChecked = this;
+}
+
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 </script>
 </body>
 </html>
