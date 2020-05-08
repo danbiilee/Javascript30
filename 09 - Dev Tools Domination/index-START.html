@@ -50,6 +50,7 @@
 
     // Grouping together
     dogs.forEach(dog => {
+      //console.group(`${dog.name}`);
       console.groupCollapsed(`${dog.name}`);
       console.log(`this is ${dog.name}`);
       console.log(`${dog.name} is ${dog.age} years old`);
@@ -73,7 +74,7 @@
     fetch('https://api.github.com/users/wesbos')
       .then(data => data.json())
       .then(data => {
-        console.timeEnd('fetching data');
+        console.timeEnd('fetching data'); // 위에서 지정한 타이머의 이름을 똑같이!
         console.log(data);
       });
 
