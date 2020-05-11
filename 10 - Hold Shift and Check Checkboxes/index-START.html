@@ -98,7 +98,8 @@
 <script>
 const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 
-let lastChecked;
+// 쉬프트키 누른 채 체크한 마지막 요소를 담기 위한 변수
+let lastChecked; 
 
 function handleCheck(e){
   // console.log(e.shiftKey);
@@ -107,17 +108,21 @@ function handleCheck(e){
 
   let inBetween = false;
 
+  // 체크 해제한 경우도 있을 수 있으므로 
+  // 쉬프트키 + 체크한 경우에만 진행하도록 
   if(e.shiftKey && this.checked){
+    //console.log(this); // 마지막에 클릭한 체크박스
 
+    //모든 체크박스를 검사
     checkboxes.forEach(checkbox => {
       console.log(inBetween);
       console.log(checkbox);
 
       if(checkbox === lastChecked){
-        inBetween = !inBetween; // 이전에 선택된 체크박스를 만나면 true
+        inBetween = !inBetween; // 이전에(첫번째로) 선택된 체크박스를 만나면 true
         console.log('(checkbox === lastChecked)Starting to check them in between!');
       }
-      // 그 사이 체크박스들은 true로 체크하다가 이번에 선택한 체크박스를 만나면 false로 변경
+      // 그 사이 체크박스들은 true로 체크하다가 이번에(두번째로) 선택한 체크박스를 만나면 false로 변경
       // 그 다음 체크박스들은 false이기 때문에 체크 안됨
       if(checkbox === this){
         inBetween = !inBetween; 
@@ -131,6 +136,8 @@ function handleCheck(e){
 
   }
 
+  // 처음 체크박스를 클릭할 땐 위의 if절은 실행되지 않고
+  // lastChecked에 담기고만 끝남
   lastChecked = this;
   console.log('lastChecked=', lastChecked);
 }
