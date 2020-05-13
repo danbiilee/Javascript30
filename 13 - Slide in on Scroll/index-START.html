@@ -36,7 +36,7 @@
 		margin-left: 20px;
 	}
 	.slide-in{
-		/* opacity: 0; */
+		opacity: 0;
 		transition: all .5s;
 	}
 	.align-left.slide-in{
@@ -105,22 +105,27 @@ function debounce(func, wait = 20, immediate = true){
 	}
 }
 
-function checkSlide(e){
+function checkSlide(){
 	//console.count(e);
-	console.log(window.innerHeight);
+	//console.log(window.innerHeight);
 	sliderImages.forEach(sliderImage => {
 		//console.log(sliderImage.offsetTop);
 		//console.log(sliderImage.height);
 
-		// slideInAt = 이미지 영역의 높이 반 쯤에 스크롤을 위치했을 때 이미지도 50%정도 보여지도록 하는 지점 
-		// window.scrollY = 브라우저의 맨 위에서부터 얼마나 스크롤을 내렸는지 
-		// window.innerHeight = 실제로 보여지는 화면의 높이. 화면의 사이즈가 변경되면 같이 변경됨.
-		// (스크롤 내린 높이 + 실제로 보이는 화면의 크기)에서 이미지 높이의 반절을 빼면
+		// slideInAt = 해당 이미지를 슬라이드 하기 위해 기준이 되는 높이값
+		// window.scrollY = 브라우저의 맨 위를 기준으로 얼마나 스크롤을 내렸는지(보여지는 창의 사이즈가 아님!) 
+		// window.innerHeight = 실제로 보여지는 화면의 높이. 창 사이즈가 변경되면 같이 변경됨.
+		// 브라우저에서 현재 내가 위치한 높이(scrollY+innerHeight)에서 이미지 높이의 반을 빼면
 		// 브라우저 맨 위에서부터 스크롤이 위치한 이미지의 반절 높이만큼의 픽셀이 구해지고, 
-		// 그 위치가 이미지가 슬라이드 되야할 지점이 되는 것.
+		// 그 위치가 이미지가 슬라이드 되야할 지점이 됨. (이미지의 반절보다 조금 더 스크롤을 내렸을 때 슬라이드가 발생)
 
-		// innderHeight 더한 거에서 이미 이미지 반절까지 높이 구해진 거 아닌가? 왜 이미지 반을 또 빼지?
-		const slideInAt = (window.scrollY + window.innerHeight) - sliderImages.height / 2;
+		// 이미지가 슬라이드 되기 원하는 지점은 브라우저 기준 내 창의 bottom라인이 아니라
+		// 이미지 높이의 중간이므로 이미지 높이의 반을 빼주는 것
+		// ---------------------- 1. 브라우저~ 현재 창의 bottom line
+		//                 ------ 2. 이미지
+		// --------------------   3. 이미지가 슬라이드 되야할 지점
+		// => 현재 창의 bottom line이 3번이 되는 지점에서 이미지가 슬라이드 됨 
+		const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height / 2;
 
 		// 스크롤을 아래에서 위로 올릴 때 똑같은 애니메이션 효과를 주기 위해
 		// 브라우저 맨 위부터 스크롤이 올라갈 때 보여질 이미지의 밑변 기준까지의 높이를 구함
@@ -130,9 +135,9 @@ function checkSlide(e){
 		const isHalfShown = slideInAt > sliderImage.offsetTop;
 		const isNotScrolledPast = window.scrollY < imageBottom;
 
-		if(isHalfShown && isNotScrolledPast){
+		if (isHalfShown && isNotScrolledPast) {
 			sliderImage.classList.add('active');
-		} else{
+		} else {
 			sliderImage.classList.remove('active');
 		}
 	});
