@@ -30,13 +30,21 @@
 	<form class="add-items">
 		<input type="text" name="item" placeholder="Item Name" required>
 		<input type="submit" value="+ Add Item">
+		<input type="button" class="delBtn" value="- Delete Item">
+		<input type="button" class="chkBtn" value="Check All">
+		<!-- 전체선택/해제, 전체삭제 버튼 추가해보기! -->
 	</form>
    </div>
 
 <script>
 const addItems = document.querySelector('.add-items');
 const itemsList = document.querySelector('.plates');
-const items = JSON.parse(localStorage.getItem('items')) || [];
+//const items = JSON.parse(localStorage.getItem('items')) || [];
+let items = JSON.parse(localStorage.getItem('items')) || [];
+
+const delItems = document.querySelector('.delBtn');
+const chkItems = document.querySelector('.chkBtn');
+let isAllChecked = false; 
 
 function addItem(e){
 	e.preventDefault(); // submit 방지
@@ -61,28 +69,66 @@ function populateList(plates = [], platesList){
 				<label for="item${i}">${plate.text}</label>
 			</li>
 		`
-	}).join('');
+	}).join(''); // map()은 배열을 반환하므로 join()로 배열->문자열
 }
 
 function toggleDone(e){
-	console.log(e.target); // label + input
+	// label + input
+	// for속성 때문에 라벨을 클릭해도 체크박스까지 같이 클릭됨.
+	// CSS에서 input은 display:none, label은 flex: 1 을 설정했으므로
+	// label요소만 block요소처럼 위치하고 있음!!! 
+	console.log(e.target); 
+
+	// ES6: matches() = 제이쿼리 is()
+	// 선택한 요소 중에서 전달받은 선택자에 해당하는 요소가 하나라도 존재하면 참을 반환함 
 	if(!e.target.matches('input')) return;
 
 	const el = e.target;
-	const index = el.dataset.index;
+	const index = el.dataset.index; // data-index속성으로 미리 넣어둔 index를 이용! 
 	console.log(index);
 
 	items[index].done = !items[index].done;
 
+	// 데이터 변경되면 localStorage에도 재저장하고, 리스트도 리렌더한다.
 	localStorage.setItem('items', JSON.stringify(items));
 	populateList(items, itemsList);
 }
 
+// 추가
+function delItem() {
+	items.length = 0;
+	localStorage.clear();
+	populateList(items, itemsList);
+}
+
+function chkItem() {
+	items = items.map(item => {
+		return {text: item.text, done: !isAllChecked}
+	});
+	isAllChecked = !isAllChecked;
+	
+	localStorage.setItem('items', JSON.stringify(items));
+	populateList(items, itemsList);
+} 
 
 addItems.addEventListener('submit', addItem);
 itemsList.addEventListener('click', toggleDone);
+/* 
+이벤트 위임(delegation)
+input요소들에 클릭 이벤트 리스너 걸면 안됨
+이벤트 리스너 코드가 실행된 후에 버튼에 의해 동적으로 추가되는 요소들은 이벤트 리스너가 붙지 않음!!! 
+이벤트 리스너 코드가 실행될 때 HTML에 존재하는 요소, 즉 li태그를 전부 담고 있는 ul태그에게 이벤트 발생시킴
+자식 요소인 input이 클릭되면(미래에 생기게 될 요소도 상관없음) 
+부모 요소인 ul태그가 직접 클릭 이벤트를 제어하는 게 아니라 클릭된 자식에게로 전달해준다. 
+= resoponsible한 부모가 negligent한 자식에게 너 클릭됐다 라고 알려주는 것 
+*/
 
-populateList(items, itemsList);
+// 추가
+delItems.addEventListener('click', delItem);
+chkItems.addEventListener('click', chkItem);
+
+// 위의 이벤트가 발생하지 않아도 페이지가 로딩될 때마다 리스트 업데이트됨. 
+populateList(items, itemsList); 
 
 </script>
 </body>
