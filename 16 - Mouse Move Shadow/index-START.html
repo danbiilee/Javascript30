@@ -38,15 +38,21 @@
 	function shadow(e) {
 		const { offsetWidth: width, offsetHeight: height } = hero;
 		let { offsetX: x, offsetY: y } = e;
-
-
-		// console.log(this); // .hero요소 영역에서 .hero요소 찍힘
-		if (this !== e.target) {
-			// console.log(this); // h1요소 영역에서만 .hero요소 찍힘
+		
+		/*
+			this는 언제나 .hero = 이벤트리스너가 더해진 요소
+			e.target은 바뀔 수 있음. 실제로 이벤트가 발생하고 있는 요소
+			h1태그 위에서는 e.target =  h1요소
+			-> h1태그 위에서 x,y는 h1태그 기준이기 때문에 h1태그 왼쪽 모서리에서 0,0이 찍히게 됨
+			-> 값 보정: 거기에 브라우저에서부터 h1태그까지 떨어져있는 거리를 더해주기
+		*/
+		if (this !== e.target) { // h1태그 위 영역
 			x = x + e.target.offsetLeft;
 			y = y + e.target.offsetTop;
 		}
 
+		// walk이 100이라고 하면 섀도우거리값이 100, 0이 되지 않고 50, -50이 되도록
+		// 마우스가 브라우저의 꼭지점에 갔을 때에 맞춰주기 위함 
 		const xWalk = Math.round((x / width * walk) - (walk / 2));
 		const yWalk = Math.round((y / height * walk) - (walk / 2));
 
