@@ -2,37 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sort Without Articles</title>
-</head>
-<body>
-
+  <title>Sort Without Articles - START</title>
   <style>
     body {
-      margin: 0;
-      font-family: sans-serif;
-      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
-      background-size: cover;
       display: flex;
       align-items: center;
       min-height: 100vh;
+      margin: 0;
+      background: url("https://source.unsplash.com/nDqA4d5NL0k/2000x2000");
+      background-size: cover; 
+      font-family: sans-serif;
     }
 
-    #bands {
-      list-style: inside square;
-      font-size: 20px;
-      background: white;
+    #bands { 
       width: 500px;
       margin: auto;
       padding: 0;
-      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+      background: white;
+      box-shadow: 0 0 0 20px rgba(0,0,0,.05);
+      font-size: 20px;
+      list-style: inside square;
     }
-    
+
     #bands li {
-      border-bottom: 1px solid #efefef;
       padding: 20px;
+      border-bottom: 1px solid #efefef;
     }
-    
-    #bands li:last-child {
+
+    #bands li:last-child { 
       border-bottom: 0;
     }
 
@@ -40,13 +37,36 @@
       color: #ffc600;
       text-decoration: none;
     }
-
   </style>
+</head>
+<body>
 
   <ul id="bands"></ul>
 
 <script>
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+const arr = ['The Plot in You', 'The Devil Wears Prada'];
+
+function strip(bandName) {
+  // console.log(bandName);
+  return bandName.replace(/^(a |an |the)/i, '').trim();
+}
+
+arr.sort((a, b) => {
+  // 리턴값이 0보다 작으면 a가 앞으로 ( a < b ) 
+  // 0보다 크면 b가 앞으로 정렬됨 ( a > b ) 
+  // 0이면 변경하지 않음 ( a = b ) 
+  const result = strip(a) > strip(b) ? 1 : -1;
+  console.log(result);
+  return result;
+});
+
+const sortedBands = bands.sort((a, b) => strip(a) < strip(b) ? -1 : 1);
+
+document.querySelector('#bands').innerHTML = 
+  sortedBands
+  .map( band => `<li>${band}</li>`)
+  .join('');
 
 
 </script>
