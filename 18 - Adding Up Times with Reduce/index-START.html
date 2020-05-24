@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Videos</title>
+  <title>Videos-START</title>
 </head>
 <body>
   <ul class="videos">
@@ -182,6 +182,25 @@
     </li>
   </ul>
 <script>
+	const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+
+	const seconds = timeNodes
+		.map(node => node.dataset.time)
+		.map(timeCode => {
+			// const [mins, secs] = timeCode.split(':'); // 콘솔에 찍힐 때 문자열(검은색) 
+			const [mins, secs] = timeCode.split(':').map(parseFloat); // 콘솔에 찍힐 때 숫자(파란색)
+			return (mins * 60) + secs; // 총 초를 반환
+		})
+		.reduce((total, vidSeconds) => total + vidSeconds); // 반환된 초를 전부 total에 더해서 total을 반환 
+
+	let secondsLeft = seconds;
+	const hours = Math.floor(secondsLeft / 3600);
+	secondsLeft = secondsLeft % 3600; // 시간으로 나누고 남은 나머지 
+
+	const mins = Math.floor(secondsLeft / 60);
+	secondsLeft = secondsLeft % 60; // 분으로 나누고 남은 나머지
+
+	console.log(hours, mins, secondsLeft);
 </script>
 </body>
 </html>
