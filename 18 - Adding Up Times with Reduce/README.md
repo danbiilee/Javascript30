@@ -5,7 +5,8 @@
 ### :pencil: NOTE
 
 ### 1. NodeList는 Array가 아니다!
-`querySelectorAll` 메서드는 `NodeList`를 반환하기 때문에 배열로 변환하지 않으면, 배열의 내장 메서드들을 전부 이용할 수 없다. 
+`querySelectorAll` 메서드는 `NodeList`를 반환하기 때문에 배열로 변환하지 않으면, 배열의 내장 메서드들을 전부 이용할 수 없다.    
+`map()`과 같은 메서드를 사용하고 싶다면 아래처럼 배열로 변환하도록 하자. 
 
 ```javascript
 const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
