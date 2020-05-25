@@ -49,8 +49,8 @@ const arr = ['The Plot in You', 'The Devil Wears Prada'];
 
 function strip(bandName) {
   // console.log(bandName);
-  return bandName.replace(/^(a |an |the)/i, '').trim();
-}
+  return bandName.replace(/^(a |an |the )/i, '').trim();
+} 
 
 arr.sort((a, b) => {
   // 리턴값이 0보다 작으면 a가 앞으로 ( a < b ) 
@@ -61,6 +61,7 @@ arr.sort((a, b) => {
   return result;
 });
 
+// 파라미터로 전달하는 함수가 오직 return만 한다면 아래처럼 return문 생략해서 쓸 수 있음
 const sortedBands = bands.sort((a, b) => strip(a) < strip(b) ? -1 : 1);
 
 document.querySelector('#bands').innerHTML = 
