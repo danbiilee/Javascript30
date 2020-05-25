@@ -1,11 +1,7 @@
----
-title: "#17. Sort Without Articles"
-category: Javascript30
----
-
 # 17. Sort Without Articles
 
-## :memo: NOTE
+
+### :memo: NOTE
 ### 1. Array.prototype.sort()
 `sort()` 메소드의 파라미터로 정렬순서를 정의하는 `compareFunction`을 전달할 수 있다.     
 `compareFunction(a,b)`의 리턴값이   
