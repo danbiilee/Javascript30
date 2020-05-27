@@ -7,7 +7,7 @@ const snap = document.querySelector('.snap');
 function getVideo() {
 	console.log(navigator);
 	console.log(navigator.mediaDevices);
-	// promise
+	// navigator.mediaDevices.getUserMedia(): 비디오를 가져옴. promise 리턴
 	navigator.mediaDevices.getUserMedia({ video: true, audio: false })
 		.then(localMediaStream => {
 			console.log(localMediaStream);
@@ -26,15 +26,16 @@ function paintToCanvas() {
 	canvas.height = height;
 
 	return setInterval(() => {
+		// video를 0,0 부터 width,height 까지 그림 
 		ctx.drawImage(video, 0, 0, width, height);
 		let pixels = ctx.getImageData(0, 0, width, height);
 		
 		//pixels = redEffect(pixels);
-		// pixels = rgbSplit(pixels);
-		pixels = greenScreen(pixels);
+		pixels = rgbSplit(pixels);
+		// pixels = greenScreen(pixels);
 
 
-		// ctx.globalAlpha = 0.8; // ?
+		ctx.globalAlpha = 0.1; // whoooo~~~
 		ctx.putImageData(pixels, 0, 0); 
 		// 위 에러 남 
 		// Uncaught TypeError: Failed to execute 'putImageData' on 'CanvasRenderingContext2D': 
@@ -105,4 +106,5 @@ function greenScreen(pixels) {
 
 getVideo();
 
+// 비디오가 실행(video.play())되면 발생하는 이벤트
 video.addEventListener('canplay', paintToCanvas);
