@@ -4,7 +4,8 @@
 
 ### :pencil: NOTE
 ### 1. CSS로 백그라운드 이미지 만들기
-![background-image](https://user-images.githubusercontent.com/53761241/83132126-e5370a80-a11b-11ea-81d9-fc7395e03640.PNG)
+![background-image](https://user-images.githubusercontent.com/53761241/83132126-e5370a80-a11b-11ea-81d9-fc7395e03640.PNG)   
+
 꼭 일러스트로 만든듯한 위의 이미지는 오로지 CSS로만 만든 것...
 미쵸써 하하...👀👀👀
 
