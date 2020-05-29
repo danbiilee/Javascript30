@@ -61,15 +61,18 @@ msg.text = document.querySelector('[name="text"]').value;
 4. 옵션들이 바뀌거나 speak, stop 버튼을 누를 때마다 `toggle` 함수를 실행한다. 
 
 ```javascript
-// 멈췄다가, 속성값들이 바뀐 SpeechSynthesisUtterance를 다시 실행시킨다. 
+// 멈췄다가, 속성값들이 바뀐 utterance를 다시 실행시킨다. 
 function toggle(startOver = true) {
 	speechSynthesis.cancel();
-	if(startOver) 
-		speechSynthesis.speak(msg);
+    if(startOver) {
+        // speak()의 파라미터로 utterance 객체를 전달한다. 
+        speechSynthesis.speak(msg); 
+    }
 }
 
 speakButton.addEventListener('click', toggle);
 
 // 멈추기 버튼은 toggle함수에 파라미터로 반드시 false를 전달해야 한다. 
-stopButton.addEventListener('click', () => toggle(false));
+stopButton.addEventListener('click', () => toggle(false)); // 방법1
+stopButton.addEventListener('click', toggle.bind(null, false));  // 방법2
 ```
