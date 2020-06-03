@@ -1,4 +1,4 @@
-# 10. Hold Shift and Check 
+# 09. Dev Tools Domination
 
 ### :pencil: NOTE
 ### 1. console.log() 문자열 치환
