@@ -99,11 +99,11 @@ this.toggleClass('playing');
 ---
 ### ⚾ POINT
 1. 사용자가 특정 키를 타이핑하면(`keydown`) 드럼소리를 내는 `playSound` 콜백함수를 실행한다. 
-  - audio와 div.key 요소들의 `data-key` 속성에 미리 특정 keyCode값을 지정해놓는다. 
-  - playSound 함수가 실행되면 입력된 keyCode값과 data-key속성값을 이용해 해당 keyCode값을 갖는 audio와 div.key 요소를 찾는다.
-  - keyCode와 일치하는 audio요소가 없으면 return한다. 
-  - 일치하는 audio요소가 있다면 div.key요소에 `playing`이라는 클래스를 추가하고, audio를 실행시킨다. 
-  - playing클래스로 인해 div.key요소에 `transition` 이벤트가 발생한다.
-2. key요소들을 전부 찾아 트랜지션이 끝나면(`transitionend`) playing 클래스를 삭제하는 `removeTransition` 콜백함수를 실행한다. 
- - (트랜지션이 발생한) 이벤트 객체(e)의 `propertyName` 속성에 transform값이 없다면 return한다. 
- - transform값이 있다면 트랜지션 이벤트가 발생한 해당 요소(e.target)에서 playing 클래스를 삭제한다. 
+   - audio와 div.key 요소들의 `data-key` 속성에 미리 특정 keyCode값을 지정해놓는다. 
+   - playSound 함수가 실행되면 입력된 keyCode값과 data-key속성값을 이용해 해당 keyCode값을 갖는 audio와 div.key 요소를 찾는다.
+   - keyCode와 일치하는 audio요소가 없으면 return한다. 
+   - 일치하는 audio요소가 있다면 div.key요소에 `playing`이라는 클래스를 추가하고, audio를 실행시킨다. 
+   - playing클래스로 인해 div.key요소에 `transition` 이벤트가 발생한다.
+1. key요소들을 전부 찾아 트랜지션이 끝나면(`transitionend`) playing 클래스를 삭제하는 `removeTransition` 콜백함수를 실행한다. 
+   - (트랜지션이 발생한) 이벤트 객체(e)의 `propertyName` 속성에 transform값이 없다면 return한다. 
+   - transform값이 있다면 트랜지션 이벤트가 발생한 해당 요소(e.target)에서 playing 클래스를 삭제한다. 
