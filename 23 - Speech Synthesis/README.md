@@ -46,7 +46,7 @@ speechSynthesis.addEventListener('voiceschanged', populateVoices);
 - pitch: 소리의 높이를 결정한다. 기본값은 1이고 0 ~ 2 사이의 값을 가질 수 있다. 
 
 
-
+---
 ### ✨ POINT
 1. `SpeechSynthesisUtterance`의 `text`속성에 읽을 텍스트를 지정한다.
 

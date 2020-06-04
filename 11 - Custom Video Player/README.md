@@ -90,7 +90,7 @@ const video = player.querySelector('.viewer');
 
 
 
-
+---
 ### 🐧 POINT
 1. 비디오 혹은 플레이 버튼을 클릭하면 `togglePlay` 콜백함수가 호출되어 영상이 재생/정지 되고, 재생/정지될 때마다 `updateButton` 콜백함수에 의해 플레이버튼의 아이콘이 변경된다. 
 > ❗ 단순히 클릭에 의해서만 아니라 다른 방법들로 영상이 재생/정지될 수 있으므로 `updateButton` 함수는 `click` 이벤트로 묶여있는 `togglePlay` 함수와는 분리하는 것이 좋다. 

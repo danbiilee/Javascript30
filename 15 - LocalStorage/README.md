@@ -106,6 +106,7 @@ itemsList.addEventListener('click', toggleDone);
 
 
 
+---
 ### 🐧 POINT
 1. 더하기 버튼을 클릭하면 `items` 배열에 입력한 `item`을 추가하고, `localStorage`에 저장 후 `populateList` 함수를 통해 리스트화면을 리렌더한다. 
 2. `populateList` 함수는 리스트가 덤프될 html요소를 인자로 받는다. `items` 배열을 루프로 순회하면서 `item` 의 정보를 담은 li 태그를 리턴하고, html에 덤프한다.   
