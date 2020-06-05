@@ -9,11 +9,11 @@
 ```css 
 li.logo {
   max-width: 0;
-  /* ... */  
-	transition: all 0.5s;
+  /* ... */
+  transition: all 0.5s;
 }
 .fixed-nav li.logo {
-	max-width: 500px;
+  max-width: 500px;
 }
 ```
 ### 2. 크기 구하기
@@ -39,9 +39,11 @@ if(window.scrollY >= topOfNav) {
 }
 ```
 
-> [❔] : `body`에 paddingTop 값은 왜 주는 지 모르겠다. 하나 안하나 똑같아 보이는데!?
 
-[🔍답] : `position: fixed`에 의해 nav는 브라우저 맨 위에 달라붙으면서 원래 차지하고 있던 공간을 잃게(?!) 된다. 때문에 그 아래에 있던 div가 nav에 의해 생긴 공간만큼 갑자기 훅 뛰어올라가버린다.   
+--- 
+**[❔]** : `body`에 paddingTop 값은 왜 주는 지 모르겠다. 하나 안하나 똑같아 보이는데!?
+
+**[🔍답]** : `position: fixed`에 의해 nav는 브라우저 맨 위에 달라붙으면서 원래 차지하고 있던 공간을 잃게(?!) 된다. 때문에 그 아래에 있던 div가 nav에 의해 생긴 공간만큼 갑자기 훅 뛰어올라가버린다.   
 그래서 nav가 fixed되던 안되던 항상 nav의 높이값만큼을 유지하고자 paddingTop값을 추가해주는 것이다! 
 
 
